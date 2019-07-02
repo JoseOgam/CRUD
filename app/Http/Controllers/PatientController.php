@@ -31,7 +31,7 @@ class PatientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -62,45 +62,60 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Patient  $patient
+     * @param  \App\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function show(Patient $patient)
     {
-        //
+        return view('patient.show', compact('patient'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Patient  $patient
+     * @param  \App\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function edit(Patient $patient)
     {
-        //
+        return view('patient.edit', compact('patient'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Patient  $patient
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Patient $patient)
     {
-        //
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'patient_id' => 'required',
+            'DoB' => 'required',
+            'gender' => 'required',
+            'phone_no' => 'required',
+
+        ]);
+        $patient->update($request->all());
+
+        return redirect()->route('patient.index')
+            ->with('success', 'Product updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Patient  $patient
+     * @param  \App\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function destroy(Patient $patient)
     {
-        //
+        $patient->delete();
+
+        return redirect()->route('patient.index')
+            ->with('success', 'Product deleted successfully');
     }
 }

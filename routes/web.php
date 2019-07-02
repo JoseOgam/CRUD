@@ -29,4 +29,7 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::get('/info', 'InformationController@index')->name('info');
 
+Route::resource('patient','PatientController');
+
+
 

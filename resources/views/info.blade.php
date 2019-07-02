@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <section class="content container">
+    <div class="card-body">
         <div class="row">
-            <h3 class="col-12 text-center" style="text-decoration: blink">Patient info</h3>
+            <h3 class="col-12 text-center card-header" style="text-decoration: blink">Patient info</h3>
             <table class="table table-striped table-dark table-hover">
                 <div class="text-center card-tools">
                 </div>
@@ -37,5 +38,5 @@
 
         </div>
     </div>
-
+    </section>
 @endsection
