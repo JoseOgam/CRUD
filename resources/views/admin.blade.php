@@ -125,12 +125,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('home')}}" class="nav-link active">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Home</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{route('info')}}" class="nav-link active">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Patient</p>
@@ -157,9 +151,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Admin Dashboard</div>
+
+                        <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
+                            You are logged in!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- /.content-wrapper -->
 

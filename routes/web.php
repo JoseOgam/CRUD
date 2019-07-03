@@ -25,11 +25,16 @@ Route::get('/welcome', 'WelcomeController@index')->name('welcome');
 
 Route::post('/patient', 'PatientController@store');
 
+Route::post('/show', 'PatientController@show');
+
+Route::get('/edit', 'PatientController@edit');
+
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::get('/info', 'InformationController@index')->name('info');
 
-Route::resource('patient','PatientController');
+Route::resource('patients', 'PatientController');
+
 
 
 

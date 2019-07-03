@@ -64,10 +64,17 @@ class PatientController extends Controller
      *
      * @param  \App\Patient $patient
      * @return \Illuminate\Http\Response
+     *
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function show(Patient $patient)
     {
-        return view('patient.show', compact('patient'));
+        $patient = Patient::find($patient);
+        return view('show', compact('patient'));
     }
 
     /**
@@ -76,9 +83,11 @@ class PatientController extends Controller
      * @param  \App\Patient $patient
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Patient $patient)
     {
-        return view('patient.edit', compact('patient'));
+        $patient = Patient::find($patient);
+        return view('edit', compact('patient'));
     }
 
     /**
@@ -90,7 +99,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
-        $request->validate([
+       $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'patient_id' => 'required',
@@ -99,9 +108,9 @@ class PatientController extends Controller
             'phone_no' => 'required',
 
         ]);
-        $patient->update($request->all());
+        Patient::whereId($patient)->update($validatedData);
 
-        return redirect()->route('patient.index')
+        return redirect()->route('update')
             ->with('success', 'Product updated successfully');
     }
 
@@ -113,9 +122,10 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
+        $patient = Patient::find($patient);
         $patient->delete();
 
-        return redirect()->route('patient.index')
+        return redirect()->route('destroy')
             ->with('success', 'Product deleted successfully');
     }
 }

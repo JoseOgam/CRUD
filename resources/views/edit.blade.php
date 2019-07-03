@@ -1,86 +1,57 @@
 @extends('layouts.base')
 
 @section('content')
-    <section class="site-section" id="contact-section" style="background-color: #1c7430;">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 mb-5 position-relative">
-                    <h3 class="section-title text-center text-white mb-5">Edit Patient information</h3>
-                </div>
-            </div>
-            @if(\Session::has('success'))
-                <div class="alert alert-success alert-dismissible fade show">
-                    <strong>{{ \Session::get('success') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    <style>
+        .uper {
+            margin-top: 40px;
+        }
+    </style>
+    <div class="card uper">
+        <div class="card-header">
+            <h1 class="text-center"> Edit patient info</h1>
+        </div>
+        <div class="card-body container">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br/>
             @endif
-
-            @if($errors->any())
-                <div>
-                    @foreach($errors->all() as $error)
-                        <div class="alert alert-warning alert-dismissible fade show">
-                            <strong>{{ $error }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-            <form action="{{action('PatientController@edit')}}" method="post" class="md-form">
+            <form class="font-reduce h-50" method="post" action="{{ url('PatientController@edit') }}">
                 {{ csrf_field() }}
-                <div class="row mb-4">
-                    <div class="form-group col-6">
-                        <label for="first name">First name</label>
-                        <input type="text" class="form-control" placeholder="First name" name="first_name" value="{{$patient}}">
+                <div class="form-group">
+                    @csrf
+                    @method('PATCH')
+                    <div class="row mb-4">
+                        <div class="form-group col-6">
+                            <label for="first name">First name</label>
+                            <input type="text" class="form-control" placeholder="First name" name="first_name">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="last name">Last name</label>
+                            <input type="text" class="form-control" placeholder="Last name" name="last_name">
+                        </div>
                     </div>
-                    <div class="form-group col-6">
-                        <label for="last name">Last name</label>
-                        <input type="text" class="form-control" placeholder="Last name" name="last_name">
-                    </div>
-                </div>
+                    <hr>
+                    <label for="name">Patient id:</label>
+                    <input type="text" class="form-control" name="first_name" value="">
+                    <hr>
+                    <label for="name">Patient DoB:</label>
+                    <input type="text" class="form-control" name="first_name" value="">
+                    <hr>
+                    <label for="name">Patient gender:</label>
+                    <input type="text" class="form-control" name="first_name" value="">
+                    <hr>
+                    <label for="name">Patient phone number:</label>
+                    <input type="text" class="form-control" name="first_name" value="">
 
-                <div class="row mb-4">
-                    <div class="form-group col-12">
-                        <label for="patient id">Patient ID</label>
-                        <input type="number" class="form-control" placeholder="Patient ID" name="patient_id">
-                    </div>
                 </div>
-
-                <div class="row mb-4">
-                    <div class="form-group col-12">
-                        <label for="DOB">Patient DOB</label>
-                        <input type="date" class="form-control" placeholder="DOB" name="DoB">
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="form-group col-12">
-                        <label for="gender">Patient gender</label>
-                        <label>
-                            <select class="custom-select" name="gender">
-                                <option selected>choose gender</option>
-                                <option>female</option>
-                                <option>male</option>
-                                <option>others</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="form-group col-12">
-                        <label for="tel">Mobile number</label>
-                        <input type="tel" class="form-control" placeholder="phone number" name="phone_no">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <input type="submit" class="btn btn-info" value="update">
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
 
             </form>
         </div>
-    </section>
+    </div>
 @endsection
